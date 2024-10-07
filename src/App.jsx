@@ -1,76 +1,67 @@
-import { v4 as uuidv4 } from "uuid";
-import { Animals } from "./components/Animals";
+import { useState } from "react";
 import { Banner } from "./components/Banner";
+import { QuestionCard } from "./components/QuestionCard";
+import { ResultCard } from "./components/ResultCard";
 
 export const App = () => {
-  const catAnimals = [
+  const [gameStarted, setGameStarted] = useState(false);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [gameComplete, setGameComplete] = useState(false);
+
+  const questions = [
     {
-      id: uuidv4(),
-      name: "Cat 1",
-      breed: "Breed 1",
-      description: "This is cat 1 of breed 1.",
-      imageUrl: "https://placehold.co/600x400",
+      title: "Question 1",
+      choices: ["Choice 1", "Choice 2", "Choice 3", "Choice 4"],
+      answer: "Choice 3",
     },
     {
-      id: uuidv4(),
-      name: "Cat 2",
-      breed: "Breed 2",
-      description: "This is cat 2 of breed 2.",
-      imageUrl: "https://placehold.co/600x400",
+      title: "Question 2",
+      choices: ["Choice 11", "Choice 22", "Choice 33", "Choice 44"],
+      answer: "Choice 22",
     },
     {
-      id: uuidv4(),
-      name: "Cat 3",
-      breed: "Breed 3",
-      description: "This is cat 3 of breed 3.",
-      imageUrl: "https://placehold.co/600x400",
+      title: "Question 3",
+      choices: ["Choice 1", "Choice 2", "Choice 3", "Choice 4"],
+      answer: "Choice 1",
+    },
+    {
+      title: "Question 4",
+      choices: ["Choice 1", "Choice 2", "Choice 3", "Choice 4"],
+      answer: "Choice 3",
+    },
+    {
+      title: "Question 5",
+      choices: ["Choice 1", "Choice 2", "Choice 3", "Choice 4"],
+      answer: "Choice 4",
     },
   ];
 
-  const dogAnimals = [
-    {
-      id: uuidv4(),
-      name: "Dog 1",
-      breed: "Breed 1",
-      description: "This is dog 1 of breed 1.",
-      imageUrl: "https://placehold.co/600x400",
-    },
-    {
-      id: uuidv4(),
-      name: "Dog 2",
-      breed: "Breed 2",
-      description: "This is dog 2 of breed 2.",
-      imageUrl: "https://placehold.co/600x400",
-    },
-    {
-      id: uuidv4(),
-      name: "Dog 3",
-      breed: "Breed 3",
-      description: "This is dog 3 of breed 3.",
-      imageUrl: "https://placehold.co/600x400",
-    },
-    {
-      id: uuidv4(),
-      name: "Dog 4",
-      breed: "Breed 4",
-      description: "This is dog 4 of breed 4.",
-      imageUrl: "https://placehold.co/600x400",
-    },
-    {
-      id: uuidv4(),
-      name: "Dog 5",
-      breed: "Breed 5",
-      description: "This is dog 5 of breed 5.",
-      imageUrl: "https://placehold.co/600x400",
-    },
-  ];
+  const handleStartBtnClick = () => {
+    setGameStarted(true);
+    setGameComplete(false);
+  };
+
+  const handleNext = () => {
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    } else {
+      setCurrentQuestionIndex(0);
+      setGameStarted(false);
+      setGameComplete(true);
+    }
+  };
 
   return (
     <div>
       <Banner />
-      <main className="container">
-        <Animals catAnimals={catAnimals} dogAnimals={dogAnimals} />
-      </main>
+      {!gameStarted && <button onClick={handleStartBtnClick}>Start</button>}
+      {gameStarted && (
+        <QuestionCard
+          question={questions[currentQuestionIndex]}
+          handleNext={handleNext}
+        />
+      )}
+      {gameComplete && <ResultCard />}
     </div>
   );
 };
