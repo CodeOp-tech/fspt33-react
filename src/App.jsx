@@ -7,43 +7,53 @@ export const App = () => {
   const [gameStarted, setGameStarted] = useState(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [gameComplete, setGameComplete] = useState(false);
+  const [result, setResult] = useState(0);
 
   const questions = [
     {
-      title: "Question 1",
-      choices: ["Choice 1", "Choice 2", "Choice 3", "Choice 4"],
-      answer: "Choice 3",
+      title: "What planet do we live in?",
+      choices: ["Mercury", "Earth", "Mars", "Jupiter"],
+      answer: "Earth",
     },
     {
-      title: "Question 2",
-      choices: ["Choice 11", "Choice 22", "Choice 33", "Choice 44"],
-      answer: "Choice 22",
+      title: "How many moons does he planet Earth have?",
+      choices: ["1", "2", "3", "None"],
+      answer: "1",
     },
     {
-      title: "Question 3",
-      choices: ["Choice 1", "Choice 2", "Choice 3", "Choice 4"],
-      answer: "Choice 1",
+      title: "How many hours are there in a day?",
+      choices: ["20", "48", "24", "1"],
+      answer: "24",
     },
     {
-      title: "Question 4",
-      choices: ["Choice 1", "Choice 2", "Choice 3", "Choice 4"],
-      answer: "Choice 3",
+      title: "How many mm in a cm?",
+      choices: ["10", "100", "1", "1000"],
+      answer: "10",
     },
     {
-      title: "Question 5",
-      choices: ["Choice 1", "Choice 2", "Choice 3", "Choice 4"],
-      answer: "Choice 4",
+      title: "How many seasons are there in a year?",
+      choices: ["1", "2", "3", "4"],
+      answer: "4",
     },
   ];
 
   const handleStartBtnClick = () => {
     setGameStarted(true);
     setGameComplete(false);
+    setResult(0);
   };
 
-  const handleNext = () => {
+  const handleNext = (selectedChoice) => {
+    if (selectedChoice === questions[currentQuestionIndex].answer) {
+      setResult((currentState) => {
+        return currentState + 1;
+      });
+    }
+
     if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      setCurrentQuestionIndex((currentState) => {
+        return currentState + 1;
+      });
     } else {
       setCurrentQuestionIndex(0);
       setGameStarted(false);
@@ -61,7 +71,7 @@ export const App = () => {
           handleNext={handleNext}
         />
       )}
-      {gameComplete && <ResultCard />}
+      {gameComplete && <ResultCard result={result} />}
     </div>
   );
 };
