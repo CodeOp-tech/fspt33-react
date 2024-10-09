@@ -1,6 +1,6 @@
 import { MovieCard } from "./MovieCard";
 
-export const Movies = ({ movies }) => {
+export const Movies = ({ movies, handleSelectedMovie }) => {
   if (movies.length === 0) {
     return <div>You have no movies</div>;
   }
@@ -11,10 +11,12 @@ export const Movies = ({ movies }) => {
         return (
           <MovieCard
             key={movie.id}
+            id={movie.id}
             title={movie.title}
             rating={movie.rating}
             year={movie.year}
             isPg={movie.isPg}
+            handleSelectedMovie={handleSelectedMovie}
           />
         );
       })}

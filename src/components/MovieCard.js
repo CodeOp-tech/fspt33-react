@@ -1,4 +1,15 @@
-export const MovieCard = ({ title, year, rating, isPg }) => {
+export const MovieCard = ({
+  id,
+  title,
+  year,
+  rating,
+  isPg,
+  handleSelectedMovie,
+}) => {
+  const handleSelectClick = () => {
+    handleSelectedMovie(id);
+  };
+
   return (
     <div>
       <h3>{title}</h3>
@@ -6,7 +17,7 @@ export const MovieCard = ({ title, year, rating, isPg }) => {
       <div>{rating}</div>
       {isPg && <div>PG</div>}
       <div>
-        <button>Select</button>
+        <button onClick={handleSelectClick}>Select</button>
       </div>
     </div>
   );
