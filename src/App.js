@@ -8,7 +8,7 @@ export const App = () => {
   const [movies, setMovies] = useState([]);
 
   const handleAddMovie = (movie) => {
-    console.log(movie);
+    setMovies([...movies, movie]);
   };
 
   return (

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 export const AddMovieForm = ({ handleAddMovie }) => {
   const [title, setTitle] = useState("");
@@ -31,6 +32,7 @@ export const AddMovieForm = ({ handleAddMovie }) => {
     event.preventDefault();
 
     const movie = {
+      id: uuidv4(),
       title,
       imageUrl,
       year,
@@ -39,6 +41,12 @@ export const AddMovieForm = ({ handleAddMovie }) => {
     };
 
     handleAddMovie(movie);
+
+    setTitle("");
+    setImageUrl("");
+    setYear("");
+    setRating("");
+    setIsPg(false);
   };
 
   return (
@@ -52,17 +60,25 @@ export const AddMovieForm = ({ handleAddMovie }) => {
           />
         </div>
         <div>
-          <input placeholder="Image URL" onChange={handleImageUrlChange} />
+          <input
+            placeholder="Image URL"
+            onChange={handleImageUrlChange}
+            value={imageUrl}
+          />
         </div>
         <div>
-          <input placeholder="Year" onChange={handleYearChange} />
+          <input placeholder="Year" onChange={handleYearChange} value={year} />
         </div>
         <div>
-          <input placeholder="Rating" onChange={handleRatingChange} />
+          <input
+            placeholder="Rating"
+            onChange={handleRatingChange}
+            value={rating}
+          />
         </div>
         <div>
           <label>Is PG</label>
-          <input type="checkbox" onChange={handleIsPgChange} />
+          <input type="checkbox" onChange={handleIsPgChange} checked={isPg} />
         </div>
         <div>
           <button type="submit">Submit</button>
