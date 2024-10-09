@@ -4,7 +4,7 @@ import { Movies } from "../components/Movies";
 export const MoviesPage = () => {
   return (
     <div>
-      <Banner />
+      <Banner title="Codeflix" subTitle="Pick a movie to watch today" />
       <Movies />
     </div>
   );

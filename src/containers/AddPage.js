@@ -4,7 +4,7 @@ import { Banner } from "../components/Banner";
 export const AddPage = () => {
   return (
     <div>
-      <Banner />
+      <Banner title="Codeflix" subTitle="Add a new movie" />
       <AddMovieForm />
     </div>
   );
